@@ -1,0 +1,8 @@
+{
+    "DataModel-foreingKeyErrorRaised":"-Foreing keys constraint raised on: \"{0}\"",
+    "DataModel-Posts-foreingKeyErrorRaised":"-2Foreing keys constraint raised on: \"{0}\"",
+    "DataModel-Posts-postRepositoryE001":"-Post title may contain letters (a-z, A-Z), numbers (0-9), dashes (-), underscores (_) and periods (.). It should be 1 to 128 lenght.",
+    "DataModel-Posts-postRepositoryE002":"-Post title could not be empty.",
+    "DataModel-Posts-postRepositoryE003":"-Post already inserted.",
+    "DataModel-xxxx":"!!!This key does not exists!!!"
+}
