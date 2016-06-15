@@ -371,6 +371,7 @@ namespace DG.DataModelSample.Model.Test
             samplemodel.Comments.Remove(_comments);
             Assert.IsTrue(samplemodel.Posts.CanRemove(_posts));
 
+            _posts = samplemodel.Posts.Find(_posts.posts_id);
             samplemodel.Posts.Remove(_posts);
         }
 
@@ -400,6 +401,7 @@ namespace DG.DataModelSample.Model.Test
             samplemodel.FooterTextDesc.Remove(_footertextdesc);
             Assert.IsTrue(samplemodel.FooterText.CanRemove(_footertext));
 
+            _footertext = samplemodel.FooterText.Find(_footertext.footertext_id);
             samplemodel.FooterText.Remove(_footertext);
         }
 

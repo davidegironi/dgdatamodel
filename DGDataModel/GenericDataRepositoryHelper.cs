@@ -74,7 +74,7 @@ namespace DG.Data.Model
             }
             return ret;
         }
-        
+
         /// <summary>
         /// Get primary keys of an entity
         /// </summary>
@@ -90,8 +90,6 @@ namespace DG.Data.Model
                 DbEntityEntry entityEntry = context.Entry(item);
                 //get key pairs
                 ret = (((IObjectContextAdapter)context).ObjectContext).ObjectStateManager.GetObjectStateEntry(entityEntry.Entity).EntityKey.EntityKeyValues.ToDictionary(kv => kv.Key, kv => kv.Value);
-                //detach the item to context
-                context.Set<T>().Remove(item);
             }
             return ret;
         }
@@ -113,8 +111,6 @@ namespace DG.Data.Model
                 IDictionary<string, object> databaseProperties = DbPropertyValuesToDictionary(context.Entry(item).GetDatabaseValues());
                 if (DictionaryEqual<string, object>(originalDbPropertyValues, databaseProperties))
                     ret = false;
-                //detach the item to context
-                context.Set<T>().Remove(item);
             }
             return ret;
         }
@@ -135,8 +131,6 @@ namespace DG.Data.Model
                 //get original values and convert to dictionary
                 DbPropertyValues propertyValues = context.Entry(item).CurrentValues.Clone();
                 ret = DbPropertyValuesToDictionary(propertyValues);
-                //detach the item to context
-                context.Set<T>().Remove(item);
             }
             return ret;
         }

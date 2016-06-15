@@ -165,8 +165,6 @@ namespace DG.Data.Model
 
                         }
                     }
-                    //detach the item to context
-                    context.Set<T>().Remove(item);
                     if (errors.Length == 0)
                         ret = true;
                 }
