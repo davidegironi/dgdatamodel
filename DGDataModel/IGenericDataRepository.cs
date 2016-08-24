@@ -14,6 +14,7 @@ namespace DG.Data.Model
         where T : class
         where M : class
     {
+        IGenericDataRepositoryHelper<T> Helper { get; }
         IList<T> List(Expression<Func<T, bool>> predicate, IGenericDataOrder<T> orderby, Nullable<int> skip, Nullable<int> take, params Expression<Func<T, object>>[] navigationProperties);
         IList<T> List(Expression<Func<T, bool>> predicate, IGenericDataOrder<T> orderby, Nullable<int> skip, Nullable<int> take);
         IList<T> List(Expression<Func<T, bool>> predicate, IGenericDataOrder<T> orderby, Nullable<int> take);
