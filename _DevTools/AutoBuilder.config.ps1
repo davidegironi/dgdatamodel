@@ -77,6 +77,12 @@ $builds = @(
 		ReleaseBinCmd = @(
 			@{
 				Cmd = ".\copylicense.bat"
+			},
+			@{
+				Cmd = "del Working\Bin\DGDataModel\EntityFramework.dll"
+			},
+			@{
+				Cmd = "del Working\Bin\DGDataModel\EntityFramework.SqlServer.dll"
 			}
 		);
 	};

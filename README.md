@@ -3,6 +3,9 @@ About
 
 **DGDataModel** is a **generic data access layer** built on top the *.NET Entity Framework*.
 
+## Download
+
+**[Latest Release](../../releases/latest)**
 
 ## Requirements
 
