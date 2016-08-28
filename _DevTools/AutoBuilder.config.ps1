@@ -61,17 +61,14 @@ $builds = @(
 		#commands to run before packaging of the release source
 		ReleaseSrcCmd = @(
 			@{
-				Cmd = ".\dbsql-backuptsql.bat Src empty"
-			},
-			@{
-				Cmd = ".\dbsql-backupsqlschema.bat Src"
-			},
-			@{
 				Cmd = ".\dbsql-backuptsql.bat ..\..\ empty"
 			},
 			@{
 				Cmd = ".\dbsql-backupsqlschema.bat ..\..\"
-			}
+			},
+			@{
+				Cmd = "xcopy ..\..\_DBDump\* Working\Src\_DBDump\ /s /e /y"
+			}			
 		);
 		#commands to run before packaging of the release source
 		ReleaseBinCmd = @(
