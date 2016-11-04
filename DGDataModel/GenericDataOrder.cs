@@ -10,23 +10,18 @@ using System.Linq.Expressions;
 
 namespace DG.Data.Model
 {
-    public class GenericDataOrder<T> : IGenericDataOrder<T>
+    public class GenericDataOrder<T, TKey> : IGenericDataOrder<T>
         where T : class
     {
         /// <summary>
-        /// Sorting directions
-        /// </summary>
-        public enum Sort { Ascending, Descending };
-
-        /// <summary>
         /// Sorting direction
         /// </summary>
-        public Sort Direction { get; private set; }
+        public bool SortAscending { get; set; }
 
         /// <summary>
         /// Entity selector
         /// </summary>
-        public Expression<Func<T, object>> Selector { get; private set; }
+        public Expression<Func<T, TKey>> Selector { get; private set; }
 
         /// <summary>
         /// Caller
@@ -40,7 +35,7 @@ namespace DG.Data.Model
         public GenericDataOrder(object caller)
         {
             _caller = caller;
-            Direction = Sort.Ascending;
+            SortAscending = true;
             Selector = null;
         }
 
@@ -49,77 +44,131 @@ namespace DG.Data.Model
         /// </summary>
         /// <param name="caller"></param>
         /// <param name="selector"></param>
-        /// <param name="direction"></param>
-        public GenericDataOrder(object caller, Expression<Func<T, object>> selector, Sort direction)
+        /// <param name="sortAscending"></param>
+        public GenericDataOrder(object caller, Expression<Func<T, TKey>> selector, bool sortAscending)
         {
             _caller = caller;
-            Direction = direction;
+            SortAscending = sortAscending;
             Selector = selector;
         }
 
         /// <summary>
-        /// Get the parent GenericDataOrder
+        /// Get the parent IGenericDataOrder
         /// </summary>
-        public GenericDataOrder<T> Parent
+        public IGenericDataOrder<T> GetParent()
         {
-            get
-            {
-                if (_caller.GetType() == typeof(GenericDataOrder<T>))
-                    return (GenericDataOrder<T>)_caller;
-                else
-                    return null;
-            }
-        }
-
-        /// <summary>
-        /// Check if has a GenericDataOrder parent
-        /// </summary>
-        /// <returns></returns>
-        public bool HasParent()
-        {
-            if (_caller.GetType() != typeof(GenericDataOrder<T>))
-                return false;
-            return true;
+            IGenericDataOrder<T> parent = _caller as IGenericDataOrder<T>;
+            if (parent != null)
+                return parent;
+            else
+                return null;
         }
 
         /// <summary>
         /// Ascending order
         /// </summary>
+        /// <typeparam name="TKey1"></typeparam>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public IGenericDataOrder<T> ThenBy(Expression<Func<T, object>> selector)
+        public IGenericDataOrder<T> ThenBy<TKey1>(Expression<Func<T, TKey1>> selector)
         {
-            return new GenericDataOrder<T>(this, selector, GenericDataOrder<T>.Sort.Ascending);
+            return new GenericDataOrder<T, TKey1>(this, selector, true);
         }
 
         /// <summary>
         /// Descending order
         /// </summary>
+        /// <typeparam name="TKey1"></typeparam>
         /// <param name="selector"></param>
         /// <returns></returns>
-        public IGenericDataOrder<T> ThenByDescending(Expression<Func<T, object>> selector)
+        public IGenericDataOrder<T> ThenByDescending<TKey1>(Expression<Func<T, TKey1>> selector)
         {
-            return new GenericDataOrder<T>(this, selector, GenericDataOrder<T>.Sort.Descending);
+            return new GenericDataOrder<T, TKey1>(this, selector, false);
         }
 
         /// <summary>
-        /// Build the reversed array that can be used to evaluate ordered selectors
+        /// Apply order to query
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="query"></param>
         /// <returns></returns>
-        public static GenericDataOrder<T>[] ToArray(GenericDataOrder<T> order)
+        public IOrderedQueryable<T> ApplyOrders(IQueryable<T> query)
         {
-            GenericDataOrder<T>[] ret = new GenericDataOrder<T>[] { };
-            GenericDataOrder<T> currentOrder = order;
+            //get the order list
+            IGenericDataOrder<T>[] orderlist = new IGenericDataOrder<T>[] { };
+            IGenericDataOrder<T> currentOrder = this;
             while (currentOrder != null)
             {
-                ret = ret.Concat(new GenericDataOrder<T>[] { new GenericDataOrder<T>(null, currentOrder.Selector, currentOrder.Direction) }).ToArray();
-                if (currentOrder.HasParent())
-                    currentOrder = currentOrder.Parent;
+                orderlist = orderlist.Concat(new IGenericDataOrder<T>[] { currentOrder }).ToArray();
+                IGenericDataOrder<T> parentOrder = currentOrder.GetParent();
+                if (parentOrder != null)
+                    currentOrder = parentOrder;
                 else
                     currentOrder = null;
             }
-            return ret.Reverse().ToArray();
+            orderlist = orderlist.Reverse().ToArray();
+
+            //build the ordered query
+            IOrderedQueryable<T> queryOrdered = null;
+            foreach (IGenericDataOrder<T> order in orderlist)
+            {
+                if (queryOrdered == null)
+                {
+                    if (order.SortAscending)
+                        queryOrdered = order.ApplyOrderByAscending(query);
+                    else
+                        queryOrdered = order.ApplyOrderByDescending(query);
+                }
+                else
+                {
+                    if (order.SortAscending)
+                        queryOrdered = order.ApplyThenByAscending(queryOrdered);
+                    else
+                        queryOrdered = order.ApplyThenByDescending(queryOrdered);
+                }
+            }
+
+            return queryOrdered;
+        }
+
+        /// <summary>
+        /// Apply order to query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public IOrderedQueryable<T> ApplyOrderByAscending(IQueryable<T> query)
+        {
+            return query.OrderBy(Selector);
+        }
+
+        /// <summary>
+        /// Apply order to query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public IOrderedQueryable<T> ApplyOrderByDescending(IQueryable<T> query)
+        {
+            return query.OrderByDescending(Selector);
+        }
+
+        /// <summary>
+        /// Apply order to ordered query
+        /// </summary>
+        /// <param name="queryOrdered"></param>
+        /// <returns></returns>
+        public IOrderedQueryable<T> ApplyThenByAscending(IOrderedQueryable<T> queryOrdered)
+        {
+            return queryOrdered.ThenBy(Selector);
+        }
+
+        /// <summary>
+        /// Apply order to ordered query
+        /// </summary>
+        /// <param name="queryOrdered"></param>
+        /// <returns></returns>
+        public IOrderedQueryable<T> ApplyThenByDescending(IOrderedQueryable<T> queryOrdered)
+        {
+            return queryOrdered.ThenByDescending(Selector);
         }
     }
 }
+

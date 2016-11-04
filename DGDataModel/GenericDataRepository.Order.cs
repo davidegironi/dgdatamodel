@@ -17,18 +17,18 @@ namespace DG.Data.Model
         /// OrderBy in ascending direction using a selector
         /// </summary>
         /// <returns></returns>
-        public IGenericDataOrder<T> OrderBy(Expression<Func<T, object>> selector)
+        public IGenericDataOrder<T> OrderBy<TKey>(Expression<Func<T, TKey>> selector)
         {
-            return new GenericDataOrder<T>(this, selector, GenericDataOrder<T>.Sort.Ascending);
+            return new GenericDataOrder<T, TKey>(this, selector, true);
         }
 
         /// <summary>
         /// OrderBy in descending direction using a selector
         /// </summary>
         /// <returns></returns>
-        public IGenericDataOrder<T> OrderByDescending(Expression<Func<T, object>> selector)
+        public IGenericDataOrder<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> selector)
         {
-            return new GenericDataOrder<T>(this, selector, GenericDataOrder<T>.Sort.Descending);
+            return new GenericDataOrder<T, TKey>(this, selector, false);
         }
     }
 }

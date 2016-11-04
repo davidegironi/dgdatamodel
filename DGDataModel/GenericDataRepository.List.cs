@@ -41,35 +41,18 @@ namespace DG.Data.Model
 
                 if (orderby != null)
                 {
-                    //build the ordered query
-                    IOrderedQueryable<T> dbQueryOrderd = null;
-                    foreach (GenericDataOrder<T> order in GenericDataOrder<T>.ToArray((GenericDataOrder<T>)orderby))
-                    {
-                        if (dbQueryOrderd == null)
-                        {
-                            if (order.Direction == GenericDataOrder<T>.Sort.Ascending)
-                                dbQueryOrderd = dbQuery.OrderBy(order.Selector);
-                            else
-                                dbQueryOrderd = dbQuery.OrderByDescending(order.Selector);
-                        }
-                        else
-                        {
-                            if (order.Direction == GenericDataOrder<T>.Sort.Ascending)
-                                dbQueryOrderd = dbQueryOrderd.ThenBy(order.Selector);
-                            else
-                                dbQueryOrderd = dbQueryOrderd.ThenByDescending(order.Selector);
-                        }
-                    }
+                    //apply order
+                    IOrderedQueryable<T> dbQueryOrdered = orderby.ApplyOrders(dbQuery);
 
                     //limits
                     if (skip == null && take == null)
-                        ret = dbQueryOrderd.ToList<T>();
+                        ret = dbQueryOrdered.ToList<T>();
                     else if (skip != null && take != null)
-                        ret = dbQueryOrderd.Skip((int)skip).Take((int)take).ToList<T>();
+                        ret = dbQueryOrdered.Skip((int)skip).Take((int)take).ToList<T>();
                     else if (skip != null && take == null)
-                        ret = dbQueryOrderd.Skip((int)skip).ToList<T>();
+                        ret = dbQueryOrdered.Skip((int)skip).ToList<T>();
                     else if (skip == null && take != null)
-                        ret = dbQueryOrderd.Take((int)take).ToList<T>();
+                        ret = dbQueryOrdered.Take((int)take).ToList<T>();
                 }
                 else
                 {

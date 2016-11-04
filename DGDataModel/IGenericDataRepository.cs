@@ -42,8 +42,8 @@ namespace DG.Data.Model
         bool CanRemove(params T[] items);
         bool CanRemove(bool checkForeingKeys, string[] excludedForeingKeys, ref string[] errors, params T[] items);
         bool CanRemove(bool checkForeingKeys, ref string[] errors, params T[] items);
-        IGenericDataOrder<T> OrderBy(Expression<Func<T, object>> selector);
-        IGenericDataOrder<T> OrderByDescending(Expression<Func<T, object>> selector);
+        IGenericDataOrder<T> OrderBy<TKey>(Expression<Func<T, TKey>> selector);
+        IGenericDataOrder<T> OrderByDescending<TKey>(Expression<Func<T, TKey>> selector);
         T Find(params object[] keyValues);
         T FirstOrDefault(Expression<Func<T, bool>> predicate, IGenericDataOrder<T> orderby, params Expression<Func<T, object>>[] navigationProperties);
         T FirstOrDefault(Expression<Func<T, bool>> predicate, IGenericDataOrder<T> orderby);

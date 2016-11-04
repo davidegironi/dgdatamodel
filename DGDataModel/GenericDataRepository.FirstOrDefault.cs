@@ -38,27 +38,10 @@ namespace DG.Data.Model
 
                 if (orderby != null)
                 {
-                    //build the ordered query
-                    IOrderedQueryable<T> dbQueryOrderd = null;
-                    foreach (GenericDataOrder<T> order in GenericDataOrder<T>.ToArray((GenericDataOrder<T>)orderby))
-                    {
-                        if (dbQueryOrderd == null)
-                        {
-                            if (order.Direction == GenericDataOrder<T>.Sort.Ascending)
-                                dbQueryOrderd = dbQuery.OrderBy(order.Selector);
-                            else
-                                dbQueryOrderd = dbQuery.OrderByDescending(order.Selector);
-                        }
-                        else
-                        {
-                            if (order.Direction == GenericDataOrder<T>.Sort.Ascending)
-                                dbQueryOrderd = dbQueryOrderd.ThenBy(order.Selector);
-                            else
-                                dbQueryOrderd = dbQueryOrderd.ThenByDescending(order.Selector);
-                        }
-                    }
+                    //apply order
+                    IOrderedQueryable<T> dbQueryOrdered = orderby.ApplyOrders(dbQuery);
 
-                    ret = dbQueryOrderd.FirstOrDefault();
+                    ret = dbQueryOrdered.FirstOrDefault();
                 }
                 else
                 {
