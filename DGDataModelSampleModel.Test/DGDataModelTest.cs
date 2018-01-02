@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace DG.DataModelSample.Model.Test
@@ -18,6 +19,8 @@ namespace DG.DataModelSample.Model.Test
 
         public DGDataModelTest()
         {
+            Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
+
             samplemodel = new DGDataModelSampleModel();
 
             //load language from file
@@ -57,7 +60,7 @@ namespace DG.DataModelSample.Model.Test
             samplemodel.Blogs.Add(_blogs);
         }
 
-        [Ignore]
+        [Ignore("")]
         [Test]
         public void TimeData()
         {

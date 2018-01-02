@@ -44,9 +44,6 @@ $builds = @(
 			},
 			@{
 				Name = "DGDataModelSampleModel.Test";
-			},
-			@{
-				Name = "DGDataModelSampleModel.TestConsole";
 			}
 		);
 		#files to include in the release binary package
