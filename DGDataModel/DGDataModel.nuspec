@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>DG.DGDataModel</id>
+    <id>DG.DataModel</id>
     <version>$version$</version>
     <title>Generic Entity Framework Data Model</title>
     <authors>$author$</authors>
