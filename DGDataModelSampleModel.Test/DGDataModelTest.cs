@@ -208,6 +208,7 @@ namespace DG.DataModelSample.Model.Test
             Assert.That(samplemodel.Posts.FirstOrDefault(samplemodel.Posts.OrderByDescending(r => r.posts_title).ThenBy(r => r.posts_username)).posts_username, Is.EqualTo("username 002"));
 
             Assert.That(samplemodel.Posts.FirstOrDefault(r => r.posts_title.StartsWith("Po"), samplemodel.Posts.OrderBy(r => r.posts_title).ThenByDescending(r => r.posts_username)).posts_username, Is.EqualTo("username 010"));
+
             Assert.That(samplemodel.Posts.FirstOrDefault(r => r.posts_title.StartsWith("Po"), samplemodel.Posts.OrderBy(r => r.posts_title).ThenBy(r => r.posts_username)).posts_username, Is.EqualTo("username 001"));
             Assert.That(samplemodel.Posts.FirstOrDefault(r => r.posts_title.StartsWith("Po"), samplemodel.Posts.OrderByDescending(r => r.posts_title).ThenBy(r => r.posts_username)).posts_username, Is.EqualTo("username 002"));
 
