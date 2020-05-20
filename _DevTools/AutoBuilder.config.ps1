@@ -47,7 +47,29 @@ $builds = @(
 			}
 		);
 		#files to include in the release binary package
-		ReleaseBinIncludeFiles = @();
+		ReleaseBinIncludeFiles = @(
+			@{
+				Name = "DGDataModel";
+				Files = @(
+					@{
+						FileNameFrom = "..\License\";
+						FileNameTo = "..\"
+					},
+					@{
+						FileNameFrom = "..\License\LICENSE";
+						FileNameTo = "..\DGDataModel\LICENSE"
+					},
+					@{
+						FileNameFrom = "..\README.md";
+						FileNameTo = "..\DGDataModel\README.md"
+					},
+					@{
+						FileNameFrom = "..\README.md";
+						FileNameTo = "..\README.md"
+					}
+				)
+			}
+		);
 		#unit tests to run
 		Tests = @(
 			@{

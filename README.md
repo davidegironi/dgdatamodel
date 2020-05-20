@@ -1,7 +1,7 @@
 About
 ===
 
-**DGDataModel** is a **generic data access layer** built on top the *.NET Entity Framework*.
+**DGDataModel** is a **generic data access layer** built on top of the *.NET Entity Framework*.
 
 ## Download
 
