@@ -6,15 +6,16 @@
     <title>Generic Entity Framework Data Model</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://opensource.org/licenses/MS-PL</licenseUrl>
+    <license type="file">LICENSE</license>
     <projectUrl>https://github.com/davidegironi/dgdatamodel</projectUrl>
-    <iconUrl>https://github.com/davidegironi/dgdatamodel/raw/master/DGDataModel/Resources/Images/DGDataModel_logo.png</iconUrl>
+    <icon>logo.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <copyright>$copyright$</copyright>
     <tags>EF, Entity Framework, SQL, Data Model, Generic Model</tags>
   </metadata>
   <files>
-    <file src="..\License\LICENSE" target="LICENSE" /> 
+    <file src="..\License\LICENSE" target="LICENSE" />
+    <file src="..\DGDataModel\Resources\Images\DGDataModel_logo.png" target="logo.png" />
   </files>
 </package>
