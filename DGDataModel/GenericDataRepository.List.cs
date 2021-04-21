@@ -57,14 +57,10 @@ namespace DG.Data.Model
                 else
                 {
                     //limits
-                    if (skip == null && take == null)
-                        ret = dbQuery.ToList<T>();
-                    else if (skip != null && take != null)
-                        ret = dbQuery.Skip((int)skip).Take((int)take).ToList<T>();
-                    else if (skip != null && take == null)
-                        ret = dbQuery.Skip((int)skip).ToList<T>();
-                    else if (skip == null && take != null)
+                    if (take != null)
                         ret = dbQuery.Take((int)take).ToList<T>();
+                    else
+                        ret = dbQuery.ToList<T>();
                 }
             }
             return ret;
@@ -138,18 +134,6 @@ namespace DG.Data.Model
         public IList<T> List(IGenericDataOrder<T> orderby)
         {
             return List(null, orderby, null, null);
-        }
-
-        /// <summary>
-        /// Get items using a predicate, limit with an offset the selection
-        /// </summary>
-        /// <param name="predicate"></param>
-        /// <param name="skip"></param>
-        /// <param name="take"></param>
-        /// <returns></returns>
-        public IList<T> List(Expression<Func<T, bool>> predicate, Nullable<int> skip, Nullable<int> take)
-        {
-            return List(predicate, null, skip, take);
         }
 
         /// <summary>

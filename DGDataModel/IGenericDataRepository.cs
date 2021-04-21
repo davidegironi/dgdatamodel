@@ -22,7 +22,6 @@ namespace DG.Data.Model
         IList<T> List(IGenericDataOrder<T> orderby, Nullable<int> skip, Nullable<int> take);
         IList<T> List(IGenericDataOrder<T> orderby, Nullable<int> take);
         IList<T> List(IGenericDataOrder<T> orderby);
-        IList<T> List(Expression<Func<T, bool>> predicate, Nullable<int> skip, Nullable<int> take);
         IList<T> List(Expression<Func<T, bool>> predicate, Nullable<int> take);
         IList<T> List(Expression<Func<T, bool>> predicate);
         IList<T> List();
