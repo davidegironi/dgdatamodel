@@ -6,10 +6,9 @@ $solutionName = "DGDataModel"
 $versionMajor = "1"
 $versionMinor = "2"
 $versionBuild = GetVersionBuild
-$versionRevision = "9"
+$versionRevision = "10"
 #build version number
-$assemblyVersion = GetVersion $versionMajor $versionMinor $versionBuild $versionRevision
-$fileVersion = $assemblyVersion
+$version = GetVersion $versionMajor $versionMinor $versionBuild $versionRevision
 
 #base folder for of the solution
 $baseDir  = Resolve-Path .\..\
@@ -44,6 +43,12 @@ $builds = @(
 			},
 			@{
 				Name = "DGDataModelSampleModel.Test";
+			},
+			@{
+				Name = "DGDataModelSampleModelEntityNETCore";
+			},
+			@{
+				Name = "DGDataModelSampleModelEntityNETFramework";
 			}
 		);
 		#files to include in the release binary package
@@ -52,20 +57,12 @@ $builds = @(
 				Name = "DGDataModel";
 				Files = @(
 					@{
-						FileNameFrom = "..\License\";
-						FileNameTo = "..\"
-					},
-					@{
-						FileNameFrom = "..\License\LICENSE";
-						FileNameTo = "..\DGDataModel\LICENSE"
+						FileNameFrom = "..\License";
+						FileNameTo = "."
 					},
 					@{
 						FileNameFrom = "..\README.md";
-						FileNameTo = "..\DGDataModel\README.md"
-					},
-					@{
-						FileNameFrom = "..\README.md";
-						FileNameTo = "..\README.md"
+						FileNameTo = "README.md"
 					}
 				)
 			}
@@ -73,8 +70,7 @@ $builds = @(
 		#unit tests to run
 		Tests = @(
 			@{
-				Name = "DGDataModelSampleModel.Test";
-				TestDll = "DGDataModelSampleModel.Test.dll"
+				Name = "DGDataModelSampleModel.Test"
 			}
 		);
 		#commands to run before packaging of the release source
@@ -90,10 +86,6 @@ $builds = @(
 			}			
 		);
 		#commands to run before packaging of the release source
-		ReleaseBinCmd = @(
-			@{
-				Cmd = ".\copylicense.bat"
-			}
-		);
+		ReleaseBinCmd = @();
 	};
 )

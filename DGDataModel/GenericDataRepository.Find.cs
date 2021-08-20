@@ -5,7 +5,11 @@
 #endregion
 
 using System;
+#if NETFRAMEWORK
 using System.Data.Entity;
+#else
+using Microsoft.EntityFrameworkCore;
+#endif
 
 namespace DG.Data.Model
 {

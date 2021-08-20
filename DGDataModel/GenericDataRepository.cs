@@ -5,10 +5,16 @@
 #endregion
 
 using System;
+#if NETFRAMEWORK
 using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+#else
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+#endif
 using System.Linq;
 
 namespace DG.Data.Model
@@ -89,6 +95,8 @@ namespace DG.Data.Model
         {
             bool ret = false;
 
+
+#if NETFRAMEWORK
             using (var context = (DbContext)Activator.CreateInstance(ContextType, ContextParameters))
             {
                 foreach (T item in items)
@@ -107,6 +115,10 @@ namespace DG.Data.Model
                 if (errors.Length == 0)
                     ret = true;
             }
+#else
+            //EF core removed the validation of entities
+            ret = true;
+#endif
 
             return ret;
         }
@@ -128,41 +140,51 @@ namespace DG.Data.Model
                 {
                     //attach the item to context
                     context.Set<T>().Attach(item);
+
+#if NETFRAMEWORK
                     //loop navigation properties
                     EntityType entityType = ((IObjectContextAdapter)context).ObjectContext.CreateObjectSet<T>().EntitySet.ElementType;
-                    foreach (NavigationProperty navigationProperty in entityType.NavigationProperties)
+                    foreach (NavigationProperty navigationProperty in entityType.NavigationProperties.Where(x => x.GetDependentProperties().Count() == 0))
                     {
-                        //navigate only foreing keys
-                        if (navigationProperty.GetDependentProperties().Count() == 0)
+                        if (excludedForeingKeys != null)
                         {
-                            if (excludedForeingKeys != null)
+                            if (excludedForeingKeys.Contains(navigationProperty.RelationshipType.Name))
                             {
-                                if (excludedForeingKeys.Contains(navigationProperty.RelationshipType.Name))
-                                {
-                                    continue;
-                                }
+                                continue;
                             }
-
-                            RelationshipType t = navigationProperty.RelationshipType;
-                            var member = context.Entry(item).Member(navigationProperty.Name);
-
-                            if (member is DbCollectionEntry)
+                        }
+#else
+                    //loop navigation properties
+                    var entityType = context.Model.FindEntityType(typeof(T));
+                    if (excludedForeingKeys == null)
+                        excludedForeingKeys = new string[] { };
+                    foreach (PropertyInfo navigationProperty in entityType.GetNavigations().Where(x => !x.IsOnDependent && !excludedForeingKeys.Contains(x.ForeignKey.GetConstraintName())).Select(x => x.PropertyInfo))
+                    {
+#endif
+                        var member = context.Entry(item).Member(navigationProperty.Name);
+#if NETFRAMEWORK
+                        if (member is DbCollectionEntry)
+#else
+                        if (member is CollectionEntry)
+#endif
+                        {
+                            if (context.Entry(item).Collection(navigationProperty.Name).Query().GetEnumerator().MoveNext())
                             {
-                                if (context.Entry(item).Collection(navigationProperty.Name).Query().GetEnumerator().MoveNext())
-                                {
-                                    //add errors string
-                                    errors = errors.Concat(new string[] { String.Format(languageBase.foreingKeyErrorRaised, navigationProperty.Name) }).ToArray();
-                                }
+                                //add errors string
+                                errors = errors.Concat(new string[] { String.Format(languageBase.foreingKeyErrorRaised, navigationProperty.Name) }).ToArray();
                             }
-                            else if (member is DbReferenceEntry)
+                        }
+#if NETFRAMEWORK
+                        else if (member is DbReferenceEntry)
+#else
+                        else if (member is ReferenceEntry)
+#endif
+                        {
+                            if (context.Entry(item).Reference(navigationProperty.Name).Query().GetEnumerator().MoveNext())
                             {
-                                if (context.Entry(item).Reference(navigationProperty.Name).Query().GetEnumerator().MoveNext())
-                                {
-                                    //add errors string
-                                    errors = errors.Concat(new string[] { String.Format(languageBase.foreingKeyErrorRaised, navigationProperty.Name) }).ToArray();
-                                }
+                                //add errors string
+                                errors = errors.Concat(new string[] { String.Format(languageBase.foreingKeyErrorRaised, navigationProperty.Name) }).ToArray();
                             }
-
                         }
                     }
                     if (errors.Length == 0)

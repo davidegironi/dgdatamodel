@@ -5,8 +5,11 @@
 #endregion
 
 using System;
+#if NETFRAMEWORK
 using System.Data.Entity;
-
+#else
+using Microsoft.EntityFrameworkCore;
+#endif
 namespace DG.Data.Model
 {
     public partial class GenericDataRepository<T, M> : IGenericDataRepository<T, M>

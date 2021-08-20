@@ -6,7 +6,11 @@
 
 using System;
 using System.Collections.Generic;
+#if NETFRAMEWORK
 using System.Data.Entity;
+#else
+using Microsoft.EntityFrameworkCore;
+#endif
 using System.Linq;
 using System.Linq.Expressions;
 

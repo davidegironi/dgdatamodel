@@ -6,11 +6,17 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
-using System.Linq;
+#if NETFRAMEWORK
 using System.Text.RegularExpressions;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Data.Entity.Infrastructure;
+#else
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+#endif
+using System.Linq;
 
 namespace DG.Data.Model
 {
@@ -47,9 +53,15 @@ namespace DG.Data.Model
             string database = null;
             using (var context = (DbContext)Activator.CreateInstance(ContextType, ContextParameters))
             {
+#if NETFRAMEWORK
                 string connectString = context.Database.Connection.ConnectionString.ToString();
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectString);
                 database = builder.InitialCatalog;
+#else
+                string connectString = context.Database.GetDbConnection().ConnectionString;
+                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(connectString);
+                database = builder.InitialCatalog;
+#endif
             }
             return database;
         }
@@ -63,6 +75,7 @@ namespace DG.Data.Model
             string ret = null;
             using (var context = (DbContext)Activator.CreateInstance(ContextType, ContextParameters))
             {
+#if NETFRAMEWORK
                 string sql = (((IObjectContextAdapter)context).ObjectContext).CreateObjectSet<T>().ToTraceString();
                 Regex regex = new Regex("FROM (?<table>.*) AS");
                 Match match = regex.Match(sql);
@@ -71,6 +84,9 @@ namespace DG.Data.Model
                 MatchCollection matches = new Regex("\\[(?<table>.*?)\\]").Matches(ret);
                 Match matchb = matches[matches.Count - 1];
                 ret = matchb.Groups["table"].Value;
+#else
+                ret = context.Model.FindEntityType(typeof(T)).GetTableName();
+#endif
             }
             return ret;
         }
@@ -87,9 +103,15 @@ namespace DG.Data.Model
             {
                 //attach the item to context
                 context.Set<T>().Attach(item);
-                DbEntityEntry entityEntry = context.Entry(item);
+#if NETFRAMEWORK
                 //get key pairs
+                DbEntityEntry entityEntry = context.Entry(item);
                 ret = (((IObjectContextAdapter)context).ObjectContext).ObjectStateManager.GetObjectStateEntry(entityEntry.Entity).EntityKey.EntityKeyValues.ToDictionary(kv => kv.Key, kv => kv.Value);
+#else
+                //get key pairs
+                EntityEntry entityEntry = context.Entry(item);
+                ret = entityEntry.Metadata.FindPrimaryKey().Properties.Select(p => new { Key = p.Name, Value = entityEntry.Property(p.Name).CurrentValue}).ToDictionary(kv => kv.Key, kv => kv.Value);
+#endif
             }
             return ret;
         }
@@ -107,7 +129,6 @@ namespace DG.Data.Model
             {
                 //attach the item to context
                 context.Set<T>().Attach(item);
-                DbEntityEntry entityEntry = context.Entry(item);
                 IDictionary<string, object> databaseProperties = DbPropertyValuesToDictionary(context.Entry(item).GetDatabaseValues());
                 if (DictionaryEqual<string, object>(originalDbPropertyValues, databaseProperties))
                     ret = false;
@@ -127,9 +148,12 @@ namespace DG.Data.Model
             {
                 //attach the item to context
                 context.Set<T>().Attach(item);
-                DbEntityEntry entityEntry = context.Entry(item);
                 //get original values and convert to dictionary
+#if NETFRAMEWORK
                 DbPropertyValues propertyValues = context.Entry(item).CurrentValues.Clone();
+#else
+                PropertyValues propertyValues = context.Entry(item).CurrentValues.Clone();
+#endif
                 ret = DbPropertyValuesToDictionary(propertyValues);
             }
             return ret;
@@ -165,14 +189,26 @@ namespace DG.Data.Model
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
+#if NETFRAMEWORK
         private static IDictionary<string, object> DbPropertyValuesToDictionary(DbPropertyValues values)
+#else
+        private static IDictionary<string, object> DbPropertyValuesToDictionary(PropertyValues values)
+#endif
         {
             Dictionary<string, object> ret = new Dictionary<string, object>();
+#if NETFRAMEWORK
             foreach (var propertyName in values.PropertyNames)
             {
                 ret.Add(propertyName, values[propertyName]);
             }
+#else
+            foreach (var propertyName in values.Properties)
+            {
+                ret.Add(propertyName.Name, values[propertyName]);
+            }
+#endif
             return ret;
         }
+
     }
 }

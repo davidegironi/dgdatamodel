@@ -10,7 +10,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+#if NETFRAMEWORK
 using System.Web.Script.Serialization;
+#else
+using System.Text.Json;
+#endif
 
 namespace DG.Data.Model
 {
@@ -237,7 +241,11 @@ namespace DG.Data.Model
                     try
                     {
                         string jsontext = File.ReadAllText(filename);
+#if NETFRAMEWORK
                         language = new JavaScriptSerializer().Deserialize<Dictionary<string, string>>(jsontext);
+#else
+                        language = JsonSerializer.Deserialize<Dictionary<string, string>>(jsontext);
+#endif
                         ret = true;
                     }
                     catch { }
@@ -265,7 +273,11 @@ namespace DG.Data.Model
                     //serialize the list
                     try
                     {
+#if NETFRAMEWORK
                         string jsontext = new SimpleJsonFormatter(new JavaScriptSerializer().Serialize(language)).Format();
+#else
+                        string jsontext = new SimpleJsonFormatter(JsonSerializer.Serialize(language)).Format();
+#endif
                         File.WriteAllText(filename, jsontext, Encoding.UTF8);
                         ret = true;
                     }

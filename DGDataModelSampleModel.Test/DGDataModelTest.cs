@@ -4,11 +4,17 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+#if NETFRAMEWORK
 using System.Data.Entity;
 using System.Data.SqlClient;
+#else
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+#endif
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace DG.DataModelSample.Model.Test
 {
@@ -17,12 +23,36 @@ namespace DG.DataModelSample.Model.Test
     {
         DGDataModelSampleModel samplemodel = null;
 
+        /// <summary>
+        /// Initialized app config for .NET core
+        /// </summary>
+        public void InitializeTestRunnerAppConfig()
+        {
+            string appConfigPath = Assembly.GetExecutingAssembly().Location + ".config";
+            if (!File.Exists(appConfigPath))
+                return;
+            Configuration configurationApp = ConfigurationManager.OpenMappedExeConfiguration(new ExeConfigurationFileMap { ExeConfigFilename = appConfigPath }, ConfigurationUserLevel.None);
+            Configuration configurationActive = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            if (configurationApp == configurationActive)
+                return;
+            configurationActive.AppSettings.Settings.Clear();
+            foreach (string key in configurationApp.AppSettings.Settings.AllKeys)
+                configurationActive.AppSettings.Settings.Add(configurationApp.AppSettings.Settings[key]);
+            configurationActive.Save();
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
         public DGDataModelTest()
         {
             Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
 
-            samplemodel = new DGDataModelSampleModel();
 
+#if NETFRAMEWORK
+            samplemodel = new DGDataModelSampleModel();
+#else
+            InitializeTestRunnerAppConfig();
+            samplemodel = new DGDataModelSampleModel();
+#endif
             //load language from file
             samplemodel.LanguageHelper.LoadFromFile(GenericDataModel.GenericDataModelLanguageHelper.DefaultLanguageFilename);
 

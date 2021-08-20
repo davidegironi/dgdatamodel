@@ -1,103 +1,51 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44230B3F-5AB0-4078-9702-F45377BC026B}</ProjectGuid>
+    <TargetFrameworks>net40;netcoreapp3.1</TargetFrameworks>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DG.Data.Model</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>DGDataModel</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Version>1.2.26020.10</Version>
+    <AssemblyVersion>1.2.26020.10</AssemblyVersion>
+    <FileVersion>1.2.26020.10</FileVersion>
+    <PackageVersion>1.2.26020.10</PackageVersion>
+    <Title>DGDataModel</Title>
+    <Description>Generic data access layer built on top of the .NET Entity Framework</Description>
+    <Product>DGDataModel</Product>
+    <Authors>Davide Gironi</Authors>
+    <Company>DG</Company>
+    <RepositoryUrl>https://github.com/davidegironi/dgdatamodel</RepositoryUrl>
+    <PackageId>DG.DataModel</PackageId>
+    <PackageTags>EF, Entity Framework, SQL, Data Model, Generic Model</PackageTags>
+    <PackageProjectUrl>https://github.com/davidegironi/dgdatamodel</PackageProjectUrl>
+    <PackageLicenseExpression>
+    </PackageLicenseExpression>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>DGDataModel_logo.png</PackageIcon>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Copyright>Copyright (c) Davide Gironi, 2014</Copyright>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
+    <None Include="..\License\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+    </None>
+    <None Include="Resources\Images\DGDataModel_logo.png">
+      <Pack>True</Pack>
+      <PackagePath>
+      </PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="GenericDataModel.LanguageHelper.cs" />
-    <Compile Include="GenericDataRepository.Average.cs" />
-    <Compile Include="GenericDataRepository.Min.cs" />
-    <Compile Include="GenericDataRepository.Max.cs" />
-    <Compile Include="GenericDataRepository.Order.cs" />
-    <Compile Include="GenericDataRepository.Sum.cs" />
-    <Compile Include="GenericDataRepository.LongCount.cs" />
-    <Compile Include="GenericDataRepository.Count.cs" />
-    <Compile Include="GenericDataRepository.Any.cs" />
-    <Compile Include="GenericDataRepository.FirstOrDefault.cs" />
-    <Compile Include="GenericDataRepository.Find.cs" />
-    <Compile Include="GenericDataRepository.List.cs" />
-    <Compile Include="GenericDataRepository.CanRemove.cs" />
-    <Compile Include="GenericDataRepository.CanUpdate.cs" />
-    <Compile Include="GenericDataRepository.CanAdd.cs" />
-    <Compile Include="GenericDataRepository.Remove.cs" />
-    <Compile Include="GenericDataRepository.Update.cs" />
-    <Compile Include="GenericDataRepository.Add.cs" />
-    <Compile Include="GenericDataRepositoryLanguageBase.cs" />
-    <Compile Include="GenericDataOrder.cs" />
-    <Compile Include="IGenericDataOrder.cs" />
-    <Compile Include="IGenericDataRepositoryLanguage.cs" />
-    <Compile Include="IGenericDataRepositoryHelper.cs" />
-    <Compile Include="GenericDataRepositoryHelper.cs" />
-    <Compile Include="Helpers\DGDataTableUtils.cs" />
-    <Compile Include="Helpers\DGPredicateBuilder.cs" />
-    <Compile Include="GenericDataModel.cs" />
-    <Compile Include="GenericDataRepository.cs" />
-    <Compile Include="IGenericDataRepository.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <PackageReference Include="EntityFramework" Version="6.1.3" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="DGDataModel.nuspec" />
-    <None Include="packages.config" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.8" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
