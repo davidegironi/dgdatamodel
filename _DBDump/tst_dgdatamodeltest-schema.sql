@@ -7,7 +7,7 @@ CREATE DATABASE [tst_dgdatamodeltest]
  ON  PRIMARY 
 ( NAME = N'tst_dgdatamodeltest', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\tst_dgdatamodeltest.mdf' , SIZE = 3072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'tst_dgdatamodeltest_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\tst_dgdatamodeltest_1.ldf' , SIZE = 12352KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+( NAME = N'tst_dgdatamodeltest_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\tst_dgdatamodeltest_1.ldf' , SIZE = 13632KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
  COLLATE Latin1_General_CI_AS
 END;
 ALTER DATABASE [tst_dgdatamodeltest] SET COMPATIBILITY_LEVEL = 100;
