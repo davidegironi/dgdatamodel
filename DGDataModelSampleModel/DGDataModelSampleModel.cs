@@ -1,5 +1,9 @@
 ﻿using DG.Data.Model;
+#if NETFRAMEWORK
 using DG.DataModelSample.Model.Entity;
+#else
+using DG.DataModelSample.Model.Entity.Context;
+#endif
 using System;
 #if !NETFRAMEWORK
 using Microsoft.EntityFrameworkCore;
@@ -25,42 +29,12 @@ namespace DG.DataModelSample.Model
         /// </summary>
         public DGDataModelSampleModel()
         {
-            Type contextType = typeof(dgdatamodeltestEntities);
+            Type contextType = typeof(dgdatamodeltestContext);
+
             object[] contextParameters = null;
 
             Initialize(contextType, contextParameters);
         }
-
-#if !NETFRAMEWORK
-        /// <summary>
-        /// Initialize the model
-        /// </summary>
-        /// <param name="connectionString"></param>
-        public static DGDataModelSampleModel Init(string connectionString)
-        {
-            DGDataModelSampleModel ret = null;
-
-            var builder = new HostBuilder().ConfigureServices((hostContext, services) =>
-            {
-                services.AddDbContext<dgdatamodeltestEntities>(options =>
-                {
-                    options.UseSqlServer(connectionString);
-                });
-            });
-            var host = builder.Build();
-            using (var serviceScope = host.Services.CreateScope())
-            {
-                var services = serviceScope.ServiceProvider;
-                try
-                {
-                    var employeeContext = services.GetRequiredService<dgdatamodeltestEntities>();
-                }
-                catch { }
-            }
-
-            return ret;
-        }
-#endif
 
     }
 

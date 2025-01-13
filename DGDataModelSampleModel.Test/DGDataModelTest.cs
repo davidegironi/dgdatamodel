@@ -1,9 +1,10 @@
 ﻿using DG.Data.Model;
+#if NETFRAMEWORK
 using DG.DataModelSample.Model.Entity;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+#else
+using DG.DataModelSample.Model.Entity.Context;
+using DG.DataModelSample.Model.Entity.Models;
+#endif
 #if NETFRAMEWORK
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -11,10 +12,13 @@ using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 #endif
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 
 namespace DG.DataModelSample.Model.Test
 {
@@ -23,36 +27,16 @@ namespace DG.DataModelSample.Model.Test
     {
         DGDataModelSampleModel samplemodel = null;
 
-        /// <summary>
-        /// Initialized app config for .NET core
-        /// </summary>
-        public void InitializeTestRunnerAppConfig()
-        {
-            string appConfigPath = Assembly.GetExecutingAssembly().Location + ".config";
-            if (!File.Exists(appConfigPath))
-                return;
-            Configuration configurationApp = ConfigurationManager.OpenMappedExeConfiguration(new ExeConfigurationFileMap { ExeConfigFilename = appConfigPath }, ConfigurationUserLevel.None);
-            Configuration configurationActive = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            if (configurationApp == configurationActive)
-                return;
-            configurationActive.AppSettings.Settings.Clear();
-            foreach (string key in configurationApp.AppSettings.Settings.AllKeys)
-                configurationActive.AppSettings.Settings.Add(configurationApp.AppSettings.Settings[key]);
-            configurationActive.Save();
-            ConfigurationManager.RefreshSection("appSettings");
-        }
-
         public DGDataModelTest()
         {
+#if !NETFRAMEWORK
+            File.Copy($"{System.Reflection.Assembly.GetExecutingAssembly().Location}.config", ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath, true);
+#endif
+
             Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
 
+            samplemodel = new DGDataModelSampleModel();
 
-#if NETFRAMEWORK
-            samplemodel = new DGDataModelSampleModel();
-#else
-            InitializeTestRunnerAppConfig();
-            samplemodel = new DGDataModelSampleModel();
-#endif
             //load language from file
             samplemodel.LanguageHelper.LoadFromFile(GenericDataModel.GenericDataModelLanguageHelper.DefaultLanguageFilename);
 
@@ -139,10 +123,9 @@ namespace DG.DataModelSample.Model.Test
                 }
 
                 efStopWatch.Start();
-                using (var context = new dgdatamodeltestEntities())
+                using (var context = new dgdatamodeltestContext())
                 {
                     listtest = context.blogs.ToList();
-                    //listtest = context.blogs.ToList();
                 }
                 efStopWatch.Stop();
                 efElapsed.Add(efStopWatch.Elapsed);
@@ -296,7 +279,7 @@ namespace DG.DataModelSample.Model.Test
 
             //add post
             _posts = new posts();
-            Assert.IsFalse(samplemodel.Posts.CanAdd(_posts));
+            Assert.That(samplemodel.Posts.CanAdd(_posts), Is.EqualTo(false));
 
             _posts.blogs_id = samplemodel.Blogs.FirstOrDefault(a => a.blogs_title == "Blog1").blogs_id;
             _posts.posts_title = "Post1";
@@ -305,10 +288,10 @@ namespace DG.DataModelSample.Model.Test
             _posts.posts_email = "username@email.com";
 
             _posts.posts_title = "Post1<"; //invalid title
-            Assert.IsFalse(samplemodel.Posts.CanAdd(_posts));
+            Assert.That(samplemodel.Posts.CanAdd(_posts), Is.EqualTo(false));
 
             _posts.posts_title = "Post1";
-            Assert.IsTrue(samplemodel.Posts.CanAdd(_posts));
+            Assert.That(samplemodel.Posts.CanAdd(_posts), Is.EqualTo(true));
             samplemodel.Posts.Add(_posts);
 
             Assert.That(samplemodel.Posts.Count(), Is.EqualTo(1));
@@ -396,14 +379,14 @@ namespace DG.DataModelSample.Model.Test
             _comments.comments_email = "username@email.com";
             samplemodel.Comments.Add(_comments);
 
-            Assert.IsFalse(samplemodel.Posts.CanRemove(_posts));
+            Assert.That(samplemodel.Posts.CanRemove(_posts), Is.EqualTo(false));
             string[] errors = new string[] { };
-            Assert.IsTrue(samplemodel.Posts.CanRemove(false, ref errors, _posts));
-            Assert.IsTrue(samplemodel.Posts.CanRemove(true, new string[] { "FK_comments_posts" }, ref errors, _posts));
-            Assert.IsFalse(samplemodel.Posts.CanRemove(true, new string[] { "invalidnameFK_comments_posts" }, ref errors, _posts));
+            Assert.That(samplemodel.Posts.CanRemove(false, ref errors, _posts), Is.EqualTo(true));
+            Assert.That(samplemodel.Posts.CanRemove(true, new string[] { "FK_comments_posts" }, ref errors, _posts), Is.EqualTo(true));
+            Assert.That(samplemodel.Posts.CanRemove(true, new string[] { "invalidnameFK_comments_posts" }, ref errors, _posts), Is.EqualTo(false));
 
             samplemodel.Comments.Remove(_comments);
-            Assert.IsTrue(samplemodel.Posts.CanRemove(_posts));
+            Assert.That(samplemodel.Posts.CanRemove(_posts), Is.EqualTo(true));
 
             _posts = samplemodel.Posts.Find(_posts.posts_id);
             samplemodel.Posts.Remove(_posts);
@@ -421,7 +404,7 @@ namespace DG.DataModelSample.Model.Test
             _footertext.footertext_title = "FooterText1";
             samplemodel.FooterText.Add(_footertext);
 
-            Assert.IsTrue(samplemodel.FooterText.CanRemove(_footertext));
+            Assert.That(samplemodel.FooterText.CanRemove(_footertext), Is.EqualTo(true));
 
             _footertextdesc = new footertextdesc();
             _footertextdesc.footertext_id = _footertext.footertext_id;
@@ -429,11 +412,11 @@ namespace DG.DataModelSample.Model.Test
             samplemodel.FooterTextDesc.Add(_footertextdesc);
 
             string[] errors = new string[] { };
-            Assert.IsTrue(samplemodel.FooterText.CanRemove(false, ref errors, _footertext));
-            Assert.IsFalse(samplemodel.FooterText.CanRemove(_footertext));
+            Assert.That(samplemodel.FooterText.CanRemove(false, ref errors, _footertext), Is.EqualTo(true));
+            Assert.That(samplemodel.FooterText.CanRemove(_footertext), Is.EqualTo(false));
 
             samplemodel.FooterTextDesc.Remove(_footertextdesc);
-            Assert.IsTrue(samplemodel.FooterText.CanRemove(_footertext));
+            Assert.That(samplemodel.FooterText.CanRemove(_footertext), Is.EqualTo(true));
 
             _footertext = samplemodel.FooterText.Find(_footertext.footertext_id);
             samplemodel.FooterText.Remove(_footertext);
@@ -458,14 +441,14 @@ namespace DG.DataModelSample.Model.Test
             _posts.posts_username = "username";
             _posts.posts_email = "username@email.com";
 
-            Assert.IsFalse(samplemodel.Posts.Add(ref errors, ref exceptionTrace, _posts));
+            Assert.That(samplemodel.Posts.Add(ref errors, ref exceptionTrace, _posts), Is.EqualTo(false));
             Assert.That(errors.Length, Is.EqualTo(0));
-            Assert.IsTrue(!String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(!String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             _posts.blogs_id = samplemodel.Blogs.FirstOrDefault(a => a.blogs_title == "Blog1").blogs_id;
-            Assert.IsTrue(samplemodel.Posts.Add(ref errors, ref exceptionTrace, _posts));
+            Assert.That(samplemodel.Posts.Add(ref errors, ref exceptionTrace, _posts), Is.EqualTo(true));
             Assert.That(errors.Length, Is.EqualTo(0));
-            Assert.IsTrue(String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             //add tags
             _tags = new tags();
@@ -479,39 +462,39 @@ namespace DG.DataModelSample.Model.Test
             //edit post1
             _posts = samplemodel.Posts.FirstOrDefault(a => a.posts_title == "Post1");
             _posts.blogs_id = -1;
-            Assert.IsFalse(samplemodel.Posts.Update(ref errors, ref exceptionTrace, _posts));
+            Assert.That(samplemodel.Posts.Update(ref errors, ref exceptionTrace, _posts), Is.EqualTo(false));
             Assert.That(errors.Length, Is.EqualTo(0));
-            Assert.IsTrue(!String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(!String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             _posts.blogs_id = samplemodel.Blogs.FirstOrDefault(a => a.blogs_title == "Blog1").blogs_id;
-            Assert.IsTrue(samplemodel.Posts.Update(ref errors, ref exceptionTrace, _posts));
+            Assert.That(samplemodel.Posts.Update(ref errors, ref exceptionTrace, _posts), Is.EqualTo(true));
             Assert.That(errors.Length, Is.EqualTo(0));
-            Assert.IsTrue(String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             //add poststotags
             _poststotags = new poststotags();
             _poststotags.posts_id = samplemodel.Posts.FirstOrDefault(a => a.posts_title == "Post1").posts_id;
             _poststotags.poststotags_comments = "123x";
-            Assert.IsFalse(samplemodel.PostsToTags.Add(ref errors, ref exceptionTrace, _poststotags));
+            Assert.That(samplemodel.PostsToTags.Add(ref errors, ref exceptionTrace, _poststotags), Is.EqualTo(false));
             Assert.That(errors.Length, Is.AtLeast(1));
-            Assert.IsTrue(String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             _poststotags.tags_id = samplemodel.Tags.FirstOrDefault(a => a.tags_name == "Tag1").tags_id;
-            Assert.IsTrue(samplemodel.PostsToTags.Add(ref errors, ref exceptionTrace, _poststotags));
+            Assert.That(samplemodel.PostsToTags.Add(ref errors, ref exceptionTrace, _poststotags), Is.EqualTo(true));
             Assert.That(errors.Length, Is.EqualTo(0));
-            Assert.IsTrue(String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             //edit poststotags
             _poststotags = samplemodel.PostsToTags.FirstOrDefault(a => a.poststotags_comments == "123x");
             _poststotags.tags_id = -1;
-            Assert.IsFalse(samplemodel.PostsToTags.Update(ref errors, ref exceptionTrace, _poststotags));
+            Assert.That(samplemodel.PostsToTags.Update(ref errors, ref exceptionTrace, _poststotags), Is.EqualTo(false));
             Assert.That(errors.Length, Is.AtLeast(1));
-            Assert.IsTrue(String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
 
             _poststotags.tags_id = samplemodel.Tags.FirstOrDefault(a => a.tags_name == "Tag1").tags_id;
-            Assert.IsTrue(samplemodel.PostsToTags.Update(ref errors, ref exceptionTrace, _poststotags));
+            Assert.That(samplemodel.PostsToTags.Update(ref errors, ref exceptionTrace, _poststotags), Is.EqualTo(true));
             Assert.That(errors.Length, Is.EqualTo(0));
-            Assert.IsTrue(String.IsNullOrEmpty(exceptionTrace));
+            Assert.That(String.IsNullOrEmpty(exceptionTrace), Is.EqualTo(true));
         }
 
         [Test]
@@ -534,10 +517,10 @@ namespace DG.DataModelSample.Model.Test
             //get post
             _posts = samplemodel.Posts.Find(_posts.posts_id);
             IDictionary<string, object> _postsoriginalvalues = samplemodel.Posts.Helper.GetPropertyValues(_posts);
-            Assert.IsFalse(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues));
+            Assert.That(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues), Is.EqualTo(false));
 
             _posts.posts_text = "test text 3";
-            Assert.IsFalse(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues));
+            Assert.That(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues), Is.EqualTo(false));
 
             //update post by third part
             sqlConnection = new SqlConnection();
@@ -545,10 +528,10 @@ namespace DG.DataModelSample.Model.Test
             sqlConnection.Open();
             new SqlCommand(@"UPDATE posts SET posts_text = 'test text 2' WHERE posts_id = " + _posts.posts_id, sqlConnection).ExecuteNonQuery();
             sqlConnection.Close();
-            Assert.IsTrue(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues));
+            Assert.That(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues), Is.EqualTo(true));
 
             _posts.posts_text = "test text 2";
-            Assert.IsTrue(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues));
+            Assert.That(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues), Is.EqualTo(true));
 
             //update post by third part (take it back to original values)
             sqlConnection = new SqlConnection();
@@ -556,7 +539,7 @@ namespace DG.DataModelSample.Model.Test
             sqlConnection.Open();
             new SqlCommand(@"UPDATE posts SET posts_text = 'test text 1' WHERE posts_id = " + _posts.posts_id, sqlConnection).ExecuteNonQuery();
             sqlConnection.Close();
-            Assert.IsFalse(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues));
+            Assert.That(samplemodel.Posts.Helper.ArePropertyValuesChanged(_posts, _postsoriginalvalues), Is.EqualTo(false));
         }
 
         [Test]
@@ -590,8 +573,6 @@ namespace DG.DataModelSample.Model.Test
 
             Assert.That(expected, Is.EqualTo(actual));
         }
-
-
     }
 
 

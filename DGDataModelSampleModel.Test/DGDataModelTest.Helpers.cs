@@ -1,5 +1,9 @@
 ﻿using DG.Data.Model.Helpers;
+#if NETFRAMEWORK
 using DG.DataModelSample.Model.Entity;
+#else
+using DG.DataModelSample.Model.Entity.Models;
+#endif
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

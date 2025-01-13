@@ -157,7 +157,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dgdatamodeltestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="dgdatamodeltestEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="dgdatamodeltestContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="blogs" EntityType="dgdatamodeltestModel.blogs" />
           <EntitySet Name="comments" EntityType="dgdatamodeltestModel.comments" />
           <EntitySet Name="posts" EntityType="dgdatamodeltestModel.posts" />
@@ -320,7 +320,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="dgdatamodeltestModelStoreContainer" CdmEntityContainer="dgdatamodeltestEntities">
+        <EntityContainerMapping StorageEntityContainer="dgdatamodeltestModelStoreContainer" CdmEntityContainer="dgdatamodeltestContext">
           <EntitySetMapping Name="blogs">
             <EntityTypeMapping TypeName="dgdatamodeltestModel.blogs">
               <MappingFragment StoreEntitySet="blogs">
@@ -404,6 +404,7 @@
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="SynchronizePropertyFacets" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

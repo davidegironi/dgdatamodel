@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModel", "DGDataModel\DGDataModel.csproj", "{44230B3F-5AB0-4078-9702-F45377BC026B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGDataModelSampleModel.Test", "DGDataModelSampleModel.Test\DGDataModelSampleModel.Test.csproj", "{6678DC7C-9F41-43F5-AC62-BD88C3E9777F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModel.Test", "DGDataModelSampleModel.Test\DGDataModelSampleModel.Test.csproj", "{6678DC7C-9F41-43F5-AC62-BD88C3E9777F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModel", "DGDataModelSampleModel\DGDataModelSampleModel.csproj", "{03068CBA-40E9-43B6-A734-BCD6F80D5D61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGDataModelSampleModelEntityNETFramework", "DGDataModelSampleModelEntityNETFramework\DGDataModelSampleModelEntityNETFramework.csproj", "{7C86BCD5-A5C6-444A-9AC9-890D16154A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGDataModelSampleModelEntityNETCore", "DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj", "{5B8CA48E-410F-4348-9216-D885C0EC5B2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModelEntityNETCore", "DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj", "{5B8CA48E-410F-4348-9216-D885C0EC5B2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

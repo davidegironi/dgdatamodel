@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace DG.DataModelSample.Model.Entity
+namespace DG.DataModelSample.Model.Entity.Models
 {
     public partial class poststotags
     {

@@ -1,5 +1,9 @@
 ﻿using DG.Data.Model;
+#if NETFRAMEWORK
 using DG.DataModelSample.Model.Entity;
+#else
+using DG.DataModelSample.Model.Entity.Models;
+#endif
 using System.Linq;
 
 namespace DG.DataModelSample.Model

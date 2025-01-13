@@ -5,9 +5,9 @@ BEGIN
 CREATE DATABASE [tst_dgdatamodeltest]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'tst_dgdatamodeltest', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\tst_dgdatamodeltest.mdf' , SIZE = 3072KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+( NAME = N'tst_dgdatamodeltest', FILENAME = N'/var/opt/mssql/data/tst_dgdatamodeltest.mdf' , SIZE = 4096KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'tst_dgdatamodeltest_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\tst_dgdatamodeltest_1.ldf' , SIZE = 13632KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+( NAME = N'tst_dgdatamodeltest_log', FILENAME = N'/var/opt/mssql/data/tst_dgdatamodeltest_1.ldf' , SIZE = 13632KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
  COLLATE Latin1_General_CI_AS
 END;
 ALTER DATABASE [tst_dgdatamodeltest] SET COMPATIBILITY_LEVEL = 100;
@@ -43,6 +43,7 @@ ALTER DATABASE [tst_dgdatamodeltest] SET PAGE_VERIFY CHECKSUM;
 ALTER DATABASE [tst_dgdatamodeltest] SET DB_CHAINING OFF;
 ALTER DATABASE [tst_dgdatamodeltest] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF );
 ALTER DATABASE [tst_dgdatamodeltest] SET TARGET_RECOVERY_TIME = 0 SECONDS;
+ALTER DATABASE [tst_dgdatamodeltest] SET DELAYED_DURABILITY = DISABLED;
 ALTER AUTHORIZATION ON DATABASE::[tst_dgdatamodeltest] TO [sa];
 ALTER DATABASE [tst_dgdatamodeltest] SET  READ_WRITE;
 USE tst_dgdatamodeltest;
