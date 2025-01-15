@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace DG.DataModelSample.Model.Test
 {
     [TestFixture]
-    public partial class DGDataModelTest
+    public partial class DGDataModelSampleModel
     {
         [Test]
         public void DGPredicateBuilder1()

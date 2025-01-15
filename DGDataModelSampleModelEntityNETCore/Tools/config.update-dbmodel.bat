@@ -9,7 +9,7 @@ set CONFIGSTRING=%CONFIGSTRINGSECRET%
 rem Project path
 set PROJECT=..\DGDataModelSampleModelEntityNETCore.csproj
 rem Set the database name
-set DATABASE=dgdatamodeltest
+set DATABASE=dgdatamodel
 rem Set the context name
 set CONTEXT=%DATABASE%Context
 rem Connectionstring name, as in appSettings App.Config section

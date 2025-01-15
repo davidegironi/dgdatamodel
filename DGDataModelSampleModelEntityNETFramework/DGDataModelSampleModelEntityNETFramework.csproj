@@ -52,51 +52,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="blogs.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="comments.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="footertext.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="footertextdesc.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model_dgdatamodeltest.Context.cs">
+    <Compile Include="Model_dgdatamodel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model_dgdatamodeltest.Context.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model_dgdatamodeltest.cs">
+    <Compile Include="Model_dgdatamodel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model_dgdatamodeltest.Designer.cs">
+    <Compile Include="Model_dgdatamodel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Model_dgdatamodeltest.edmx</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.edmx</DependentUpon>
     </Compile>
     <Compile Include="posts.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="poststotags.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tags.cs">
-      <DependentUpon>Model_dgdatamodeltest.tt</DependentUpon>
+      <DependentUpon>Model_dgdatamodel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Model_dgdatamodeltest.edmx">
+    <EntityDeploy Include="Model_dgdatamodel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model_dgdatamodeltest.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model_dgdatamodel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="App.config" />
-    <None Include="Model_dgdatamodeltest.edmx.diagram">
-      <DependentUpon>Model_dgdatamodeltest.edmx</DependentUpon>
+    <None Include="Model_dgdatamodel.edmx.diagram">
+      <DependentUpon>Model_dgdatamodel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -104,15 +104,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model_dgdatamodeltest.Context.tt">
+    <Content Include="Model_dgdatamodel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model_dgdatamodeltest.edmx</DependentUpon>
-      <LastGenOutput>Model_dgdatamodeltest.Context.cs</LastGenOutput>
+      <DependentUpon>Model_dgdatamodel.edmx</DependentUpon>
+      <LastGenOutput>Model_dgdatamodel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model_dgdatamodeltest.tt">
+    <Content Include="Model_dgdatamodel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model_dgdatamodeltest.edmx</DependentUpon>
-      <LastGenOutput>Model_dgdatamodeltest.cs</LastGenOutput>
+      <DependentUpon>Model_dgdatamodel.edmx</DependentUpon>
+      <LastGenOutput>Model_dgdatamodel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

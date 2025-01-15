@@ -4,9 +4,9 @@
     <OutputType>Library</OutputType>
     <RootNamespace>DG.DataModelSample.Model.Test</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Version>1.2.30113.11</Version>
-    <AssemblyVersion>1.2.30113.11</AssemblyVersion>
-    <FileVersion>1.2.30113.11</FileVersion>
+    <Version>1.2.30115.12</Version>
+    <AssemblyVersion>1.2.30115.12</AssemblyVersion>
+    <FileVersion>1.2.30115.12</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Update="App.Debug.config">

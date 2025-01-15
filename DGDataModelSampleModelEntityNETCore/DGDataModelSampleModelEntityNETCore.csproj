@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
-    <Version>1.2.30113.11</Version>
-    <RootNamespace>DG.DataModelSample.Model</RootNamespace>
-    <UserSecretsId>e340026d-0f00-421a-b7da-06f74603b829</UserSecretsId>
     <NoWarn>$(NoWarn);CS8981</NoWarn>
+    <RootNamespace>DG.DataModelSample.Model</RootNamespace>
+    <Version>1.2.30115.12</Version>
+    <AssemblyVersion>1.2.30115.12</AssemblyVersion>
+    <FileVersion>1.2.30115.12</FileVersion>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />

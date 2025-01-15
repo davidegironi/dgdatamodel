@@ -29,7 +29,7 @@ namespace DG.DataModelSample.Model
         /// </summary>
         public DGDataModelSampleModel()
         {
-            Type contextType = typeof(dgdatamodeltestContext);
+            Type contextType = typeof(dgdatamodelContext);
 
             object[] contextParameters = null;
 
