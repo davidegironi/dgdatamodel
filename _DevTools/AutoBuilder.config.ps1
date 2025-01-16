@@ -82,7 +82,7 @@ $builds = @(
 				Cmd = ".\dbsql-backupsqlschema.bat ..\..\"
 			},
 			@{
-				Cmd = "xcopy ..\..\_DBDump\* Working\Src\_DBDump\ /s /e /y"
+				Cmd = "xcopy ..\_DBDump\* Working\Src\_DBDump\ /s /e /y"
 			}			
 		);
 		#commands to run before packaging of the release source
