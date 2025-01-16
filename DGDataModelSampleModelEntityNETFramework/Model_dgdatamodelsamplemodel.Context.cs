@@ -18,10 +18,10 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
 
-public partial class dgdatamodelContext : DbContext
+public partial class dgdatamodelsamplemodelContext : DbContext
 {
-    public dgdatamodelContext()
-        : base("name=dgdatamodelContext")
+    public dgdatamodelsamplemodelContext()
+        : base("name=dgdatamodelsamplemodelContext")
     {
 
     }

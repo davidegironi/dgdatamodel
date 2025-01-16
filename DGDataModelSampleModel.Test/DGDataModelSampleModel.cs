@@ -49,7 +49,7 @@ namespace DG.DataModelSample.Model.Test
         public void ClearData()
         {
             SqlConnection sqlConnection = new SqlConnection();
-            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelConnectionString"];
+            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelsamplemodelConnectionString"];
             sqlConnection.Open();
 
             new SqlCommand(@"DELETE FROM footertextdesc", sqlConnection).ExecuteNonQuery();
@@ -82,7 +82,7 @@ namespace DG.DataModelSample.Model.Test
             AddTestData();
 
             SqlConnection sqlConnection = new SqlConnection();
-            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelConnectionString"];
+            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelsamplemodelConnectionString"];
             sqlConnection.Open();
 
             List<blogs> listtest = new List<blogs>();
@@ -123,7 +123,7 @@ namespace DG.DataModelSample.Model.Test
                 }
 
                 efStopWatch.Start();
-                using (var context = new dgdatamodelContext())
+                using (var context = new dgdatamodelsamplemodelContext())
                 {
                     listtest = context.blogs.ToList();
                 }
@@ -524,7 +524,7 @@ namespace DG.DataModelSample.Model.Test
 
             //update post by third part
             sqlConnection = new SqlConnection();
-            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelConnectionString"];
+            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelsamplemodelConnectionString"];
             sqlConnection.Open();
             new SqlCommand(@"UPDATE posts SET posts_text = 'test text 2' WHERE posts_id = " + _posts.posts_id, sqlConnection).ExecuteNonQuery();
             sqlConnection.Close();
@@ -535,7 +535,7 @@ namespace DG.DataModelSample.Model.Test
 
             //update post by third part (take it back to original values)
             sqlConnection = new SqlConnection();
-            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelConnectionString"];
+            sqlConnection.ConnectionString = ConfigurationManager.AppSettings["dgdatamodelsamplemodelConnectionString"];
             sqlConnection.Open();
             new SqlCommand(@"UPDATE posts SET posts_text = 'test text 1' WHERE posts_id = " + _posts.posts_id, sqlConnection).ExecuteNonQuery();
             sqlConnection.Close();
@@ -545,7 +545,7 @@ namespace DG.DataModelSample.Model.Test
         [Test]
         public void TestHelperGetDatabaseName1()
         {
-            string expected = "dev_dgdatamodel";
+            string expected = "tst_dgdatamodelsamplemodel";
             string actual = samplemodel.Blogs.Helper.GetDatabaseName();
 
             Assert.That(expected, Is.EqualTo(actual));

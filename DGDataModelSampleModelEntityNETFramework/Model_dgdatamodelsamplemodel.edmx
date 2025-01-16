@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dgdatamodelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dgdatamodelsamplemodelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="blogs">
           <Key>
             <PropertyRef Name="blogs_id" />
@@ -124,7 +124,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dgdatamodelModelStoreContainer">
+        <EntityContainer Name="dgdatamodelsamplemodelModelStoreContainer">
           <EntitySet Name="blogs" EntityType="Self.blogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comments" EntityType="Self.comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="footertext" EntityType="Self.footertext" Schema="dbo" store:Type="Tables" />
@@ -156,32 +156,32 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="dgdatamodelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="dgdatamodelContext" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="blogs" EntityType="dgdatamodelModel.blogs" />
-          <EntitySet Name="comments" EntityType="dgdatamodelModel.comments" />
-          <EntitySet Name="posts" EntityType="dgdatamodelModel.posts" />
-          <EntitySet Name="poststotags" EntityType="dgdatamodelModel.poststotags" />
-          <EntitySet Name="tags" EntityType="dgdatamodelModel.tags" />
-          <AssociationSet Name="FK_posts_blogs" Association="dgdatamodelModel.FK_posts_blogs">
+      <Schema Namespace="dgdatamodelsamplemodelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="dgdatamodelsamplemodelContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="blogs" EntityType="dgdatamodelsamplemodelModel.blogs" />
+          <EntitySet Name="comments" EntityType="dgdatamodelsamplemodelModel.comments" />
+          <EntitySet Name="posts" EntityType="dgdatamodelsamplemodelModel.posts" />
+          <EntitySet Name="poststotags" EntityType="dgdatamodelsamplemodelModel.poststotags" />
+          <EntitySet Name="tags" EntityType="dgdatamodelsamplemodelModel.tags" />
+          <AssociationSet Name="FK_posts_blogs" Association="dgdatamodelsamplemodelModel.FK_posts_blogs">
             <End Role="blogs" EntitySet="blogs" />
             <End Role="posts" EntitySet="posts" />
           </AssociationSet>
-          <AssociationSet Name="FK_comments_posts" Association="dgdatamodelModel.FK_comments_posts">
+          <AssociationSet Name="FK_comments_posts" Association="dgdatamodelsamplemodelModel.FK_comments_posts">
             <End Role="posts" EntitySet="posts" />
             <End Role="comments" EntitySet="comments" />
           </AssociationSet>
-          <AssociationSet Name="FK_poststotags_posts" Association="dgdatamodelModel.FK_poststotags_posts">
+          <AssociationSet Name="FK_poststotags_posts" Association="dgdatamodelsamplemodelModel.FK_poststotags_posts">
             <End Role="posts" EntitySet="posts" />
             <End Role="poststotags" EntitySet="poststotags" />
           </AssociationSet>
-          <AssociationSet Name="FK_poststotags_tags" Association="dgdatamodelModel.FK_poststotags_tags">
+          <AssociationSet Name="FK_poststotags_tags" Association="dgdatamodelsamplemodelModel.FK_poststotags_tags">
             <End Role="tags" EntitySet="tags" />
             <End Role="poststotags" EntitySet="poststotags" />
           </AssociationSet>
-          <EntitySet Name="footertext" EntityType="dgdatamodelModel.footertext" />
-          <EntitySet Name="footertextdesc" EntityType="dgdatamodelModel.footertextdesc" />
-          <AssociationSet Name="FK_footertextdesc_footertext" Association="dgdatamodelModel.FK_footertextdesc_footertext">
+          <EntitySet Name="footertext" EntityType="dgdatamodelsamplemodelModel.footertext" />
+          <EntitySet Name="footertextdesc" EntityType="dgdatamodelsamplemodelModel.footertextdesc" />
+          <AssociationSet Name="FK_footertextdesc_footertext" Association="dgdatamodelsamplemodelModel.FK_footertextdesc_footertext">
             <End Role="footertext" EntitySet="footertext" />
             <End Role="footertextdesc" EntitySet="footertextdesc" />
           </AssociationSet>
@@ -193,7 +193,7 @@
           <Property Name="blogs_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="blogs_title" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="blogs_description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="posts" Relationship="dgdatamodelModel.FK_posts_blogs" FromRole="blogs" ToRole="posts" />
+          <NavigationProperty Name="posts" Relationship="dgdatamodelsamplemodelModel.FK_posts_blogs" FromRole="blogs" ToRole="posts" />
         </EntityType>
         <EntityType Name="comments">
           <Key>
@@ -204,7 +204,7 @@
           <Property Name="comments_text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="comments_username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="comments_email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="posts" Relationship="dgdatamodelModel.FK_comments_posts" FromRole="comments" ToRole="posts" />
+          <NavigationProperty Name="posts" Relationship="dgdatamodelsamplemodelModel.FK_comments_posts" FromRole="comments" ToRole="posts" />
         </EntityType>
         <EntityType Name="posts">
           <Key>
@@ -216,9 +216,9 @@
           <Property Name="posts_text" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="posts_username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
           <Property Name="posts_email" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="blogs" Relationship="dgdatamodelModel.FK_posts_blogs" FromRole="posts" ToRole="blogs" />
-          <NavigationProperty Name="comments" Relationship="dgdatamodelModel.FK_comments_posts" FromRole="posts" ToRole="comments" />
-          <NavigationProperty Name="poststotags" Relationship="dgdatamodelModel.FK_poststotags_posts" FromRole="posts" ToRole="poststotags" />
+          <NavigationProperty Name="blogs" Relationship="dgdatamodelsamplemodelModel.FK_posts_blogs" FromRole="posts" ToRole="blogs" />
+          <NavigationProperty Name="comments" Relationship="dgdatamodelsamplemodelModel.FK_comments_posts" FromRole="posts" ToRole="comments" />
+          <NavigationProperty Name="poststotags" Relationship="dgdatamodelsamplemodelModel.FK_poststotags_posts" FromRole="posts" ToRole="poststotags" />
         </EntityType>
         <EntityType Name="poststotags">
           <Key>
@@ -228,8 +228,8 @@
           <Property Name="posts_id" Type="Int32" Nullable="false" />
           <Property Name="tags_id" Type="Int32" Nullable="false" />
           <Property Name="poststotags_comments" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="posts" Relationship="dgdatamodelModel.FK_poststotags_posts" FromRole="poststotags" ToRole="posts" />
-          <NavigationProperty Name="tags" Relationship="dgdatamodelModel.FK_poststotags_tags" FromRole="poststotags" ToRole="tags" />
+          <NavigationProperty Name="posts" Relationship="dgdatamodelsamplemodelModel.FK_poststotags_posts" FromRole="poststotags" ToRole="posts" />
+          <NavigationProperty Name="tags" Relationship="dgdatamodelsamplemodelModel.FK_poststotags_tags" FromRole="poststotags" ToRole="tags" />
         </EntityType>
         <EntityType Name="tags">
           <Key>
@@ -237,11 +237,11 @@
           </Key>
           <Property Name="tags_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tags_name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="poststotags" Relationship="dgdatamodelModel.FK_poststotags_tags" FromRole="tags" ToRole="poststotags" />
+          <NavigationProperty Name="poststotags" Relationship="dgdatamodelsamplemodelModel.FK_poststotags_tags" FromRole="tags" ToRole="poststotags" />
         </EntityType>
         <Association Name="FK_posts_blogs">
-          <End Type="dgdatamodelModel.blogs" Role="blogs" Multiplicity="1" />
-          <End Type="dgdatamodelModel.posts" Role="posts" Multiplicity="*" />
+          <End Type="dgdatamodelsamplemodelModel.blogs" Role="blogs" Multiplicity="1" />
+          <End Type="dgdatamodelsamplemodelModel.posts" Role="posts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="blogs">
               <PropertyRef Name="blogs_id" />
@@ -252,8 +252,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_comments_posts">
-          <End Type="dgdatamodelModel.posts" Role="posts" Multiplicity="1" />
-          <End Type="dgdatamodelModel.comments" Role="comments" Multiplicity="*" />
+          <End Type="dgdatamodelsamplemodelModel.posts" Role="posts" Multiplicity="1" />
+          <End Type="dgdatamodelsamplemodelModel.comments" Role="comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="posts">
               <PropertyRef Name="posts_id" />
@@ -264,8 +264,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_poststotags_posts">
-          <End Type="dgdatamodelModel.posts" Role="posts" Multiplicity="1" />
-          <End Type="dgdatamodelModel.poststotags" Role="poststotags" Multiplicity="*" />
+          <End Type="dgdatamodelsamplemodelModel.posts" Role="posts" Multiplicity="1" />
+          <End Type="dgdatamodelsamplemodelModel.poststotags" Role="poststotags" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="posts">
               <PropertyRef Name="posts_id" />
@@ -276,8 +276,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_poststotags_tags">
-          <End Type="dgdatamodelModel.tags" Role="tags" Multiplicity="1" />
-          <End Type="dgdatamodelModel.poststotags" Role="poststotags" Multiplicity="*" />
+          <End Type="dgdatamodelsamplemodelModel.tags" Role="tags" Multiplicity="1" />
+          <End Type="dgdatamodelsamplemodelModel.poststotags" Role="poststotags" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tags">
               <PropertyRef Name="tags_id" />
@@ -293,7 +293,7 @@
           </Key>
           <Property Name="footertext_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="footertext_title" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="footertextdesc" Relationship="dgdatamodelModel.FK_footertextdesc_footertext" FromRole="footertext" ToRole="footertextdesc" />
+          <NavigationProperty Name="footertextdesc" Relationship="dgdatamodelsamplemodelModel.FK_footertextdesc_footertext" FromRole="footertext" ToRole="footertextdesc" />
         </EntityType>
         <EntityType Name="footertextdesc">
           <Key>
@@ -301,11 +301,11 @@
           </Key>
           <Property Name="footertext_id" Type="Int32" Nullable="false" />
           <Property Name="footertext_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="footertext" Relationship="dgdatamodelModel.FK_footertextdesc_footertext" FromRole="footertextdesc" ToRole="footertext" />
+          <NavigationProperty Name="footertext" Relationship="dgdatamodelsamplemodelModel.FK_footertextdesc_footertext" FromRole="footertextdesc" ToRole="footertext" />
         </EntityType>
         <Association Name="FK_footertextdesc_footertext">
-          <End Type="dgdatamodelModel.footertext" Role="footertext" Multiplicity="1" />
-          <End Type="dgdatamodelModel.footertextdesc" Role="footertextdesc" Multiplicity="0..1" />
+          <End Type="dgdatamodelsamplemodelModel.footertext" Role="footertext" Multiplicity="1" />
+          <End Type="dgdatamodelsamplemodelModel.footertextdesc" Role="footertextdesc" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="footertext">
               <PropertyRef Name="footertext_id" />
@@ -320,9 +320,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="dgdatamodelModelStoreContainer" CdmEntityContainer="dgdatamodelContext">
+        <EntityContainerMapping StorageEntityContainer="dgdatamodelsamplemodelModelStoreContainer" CdmEntityContainer="dgdatamodelsamplemodelContext">
           <EntitySetMapping Name="blogs">
-            <EntityTypeMapping TypeName="dgdatamodelModel.blogs">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.blogs">
               <MappingFragment StoreEntitySet="blogs">
                 <ScalarProperty Name="blogs_description" ColumnName="blogs_description" />
                 <ScalarProperty Name="blogs_title" ColumnName="blogs_title" />
@@ -331,7 +331,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="comments">
-            <EntityTypeMapping TypeName="dgdatamodelModel.comments">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.comments">
               <MappingFragment StoreEntitySet="comments">
                 <ScalarProperty Name="comments_email" ColumnName="comments_email" />
                 <ScalarProperty Name="comments_username" ColumnName="comments_username" />
@@ -342,7 +342,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="posts">
-            <EntityTypeMapping TypeName="dgdatamodelModel.posts">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.posts">
               <MappingFragment StoreEntitySet="posts">
                 <ScalarProperty Name="posts_email" ColumnName="posts_email" />
                 <ScalarProperty Name="posts_username" ColumnName="posts_username" />
@@ -354,7 +354,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="poststotags">
-            <EntityTypeMapping TypeName="dgdatamodelModel.poststotags">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.poststotags">
               <MappingFragment StoreEntitySet="poststotags">
                 <ScalarProperty Name="poststotags_comments" ColumnName="poststotags_comments" />
                 <ScalarProperty Name="tags_id" ColumnName="tags_id" />
@@ -363,7 +363,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tags">
-            <EntityTypeMapping TypeName="dgdatamodelModel.tags">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.tags">
               <MappingFragment StoreEntitySet="tags">
                 <ScalarProperty Name="tags_name" ColumnName="tags_name" />
                 <ScalarProperty Name="tags_id" ColumnName="tags_id" />
@@ -371,7 +371,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="footertext">
-            <EntityTypeMapping TypeName="dgdatamodelModel.footertext">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.footertext">
               <MappingFragment StoreEntitySet="footertext">
                 <ScalarProperty Name="footertext_title" ColumnName="footertext_title" />
                 <ScalarProperty Name="footertext_id" ColumnName="footertext_id" />
@@ -379,7 +379,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="footertextdesc">
-            <EntityTypeMapping TypeName="dgdatamodelModel.footertextdesc">
+            <EntityTypeMapping TypeName="dgdatamodelsamplemodelModel.footertextdesc">
               <MappingFragment StoreEntitySet="footertextdesc">
                 <ScalarProperty Name="footertext_desc" ColumnName="footertext_desc" />
                 <ScalarProperty Name="footertext_id" ColumnName="footertext_id" />

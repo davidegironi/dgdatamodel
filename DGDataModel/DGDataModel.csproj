@@ -5,10 +5,10 @@
     <RootNamespace>DG.Data.Model</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>DGDataModel</AssemblyName>
-    <Version>1.2.30115.12</Version>
-    <AssemblyVersion>1.2.30115.12</AssemblyVersion>
-    <FileVersion>1.2.30115.12</FileVersion>
-    <PackageVersion>1.2.30115.12</PackageVersion>
+    <Version>1.2.30116.12</Version>
+    <AssemblyVersion>1.2.30116.12</AssemblyVersion>
+    <FileVersion>1.2.30116.12</FileVersion>
+    <PackageVersion>1.2.30116.12</PackageVersion>
     <Title>DGDataModel</Title>
     <Description>Generic data access layer built on top of the .NET Entity Framework</Description>
     <Product>DGDataModel</Product>
