@@ -25,6 +25,9 @@
     <Copyright>Copyright (c) Davide Gironi, 2014</Copyright>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net40" Version="1.0.3" PrivateAssets="All"/>
+  </ItemGroup>
   <ItemGroup>
     <None Include="..\License\LICENSE">
       <Pack>True</Pack>
