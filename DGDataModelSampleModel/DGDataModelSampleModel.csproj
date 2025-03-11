@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net452;netcoreapp3.1;net5.0;net6.0;net7.0;net8.0</TargetFrameworks>
-    <OutputType>Library</OutputType>
     <RootNamespace>DG.DataModelSample.Model</RootNamespace>
+    <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Version>1.2.30116.12</Version>
     <AssemblyVersion>1.2.30116.12</AssemblyVersion>
@@ -12,12 +12,12 @@
     <PackageReference Include="EntityFramework" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
-    <ProjectReference Include="..\DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj" Condition="'$(TargetFramework)' == 'net5.0'" />
-    <ProjectReference Include="..\DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj" Condition="'$(TargetFramework)' == 'net6.0'" />
-    <ProjectReference Include="..\DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj" Condition="'$(TargetFramework)' == 'net7.0'" />
-    <ProjectReference Include="..\DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj" Condition="'$(TargetFramework)' == 'net8.0'" />
-    <ProjectReference Include="..\DGDataModelSampleModelEntityNETFramework\DGDataModelSampleModelEntityNETFramework.csproj" Condition="'$(TargetFramework)' == 'net452'" />
+    <ProjectReference Include="..\DGDataModelSampleModelEFCore\DGDataModelSampleModelEFCore.csproj" Condition="'$(TargetFramework)' == 'netcoreapp3.1'" />
+    <ProjectReference Include="..\DGDataModelSampleModelEFCore\DGDataModelSampleModelEFCore.csproj" Condition="'$(TargetFramework)' == 'net5.0'" />
+    <ProjectReference Include="..\DGDataModelSampleModelEFCore\DGDataModelSampleModelEFCore.csproj" Condition="'$(TargetFramework)' == 'net6.0'" />
+    <ProjectReference Include="..\DGDataModelSampleModelEFCore\DGDataModelSampleModelEFCore.csproj" Condition="'$(TargetFramework)' == 'net7.0'" />
+    <ProjectReference Include="..\DGDataModelSampleModelEFCore\DGDataModelSampleModelEFCore.csproj" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <ProjectReference Include="..\DGDataModelSampleModelEFFramework\DGDataModelSampleModelEFFramework.csproj" Condition="'$(TargetFramework)' == 'net452'" />
     <ProjectReference Include="..\DGDataModel\DGDataModel.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">

@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModel.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModel", "DGDataModelSampleModel\DGDataModelSampleModel.csproj", "{03068CBA-40E9-43B6-A734-BCD6F80D5D61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGDataModelSampleModelEntityNETFramework", "DGDataModelSampleModelEntityNETFramework\DGDataModelSampleModelEntityNETFramework.csproj", "{7C86BCD5-A5C6-444A-9AC9-890D16154A61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DGDataModelSampleModelEFFramework", "DGDataModelSampleModelEFFramework\DGDataModelSampleModelEFFramework.csproj", "{7C86BCD5-A5C6-444A-9AC9-890D16154A61}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModelEntityNETCore", "DGDataModelSampleModelEntityNETCore\DGDataModelSampleModelEntityNETCore.csproj", "{5B8CA48E-410F-4348-9216-D885C0EC5B2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DGDataModelSampleModelEFCore", "DGDataModelSampleModelEFCore\DGDataModelSampleModelEFCore.csproj", "{5B8CA48E-410F-4348-9216-D885C0EC5B2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
