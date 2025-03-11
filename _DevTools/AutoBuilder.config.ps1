@@ -45,10 +45,10 @@ $builds = @(
 				Name = "DGDataModelSampleModel.Test";
 			},
 			@{
-				Name = "DGDataModelSampleModelEntityNETCore";
+				Name = "DGDataModelSampleModelEFCore";
 			},
 			@{
-				Name = "DGDataModelSampleModelEntityNETFramework";
+				Name = "DGDataModelSampleModelEFFramework";
 			}
 		);
 		#files to include in the release binary package
