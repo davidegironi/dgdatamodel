@@ -7,7 +7,7 @@ call config.update-dbmodel-secret.bat
 rem Configuration string
 set CONFIGSTRING=%CONFIGSTRINGSECRET%
 rem Project path
-set PROJECT=..\DGDataModelSampleModelEntityNETCore.csproj
+set PROJECT=..\DGDataModelSampleModelEFCore.csproj
 rem Set the database name
 set DATABASE=dgdatamodelsamplemodel
 rem Set the context name

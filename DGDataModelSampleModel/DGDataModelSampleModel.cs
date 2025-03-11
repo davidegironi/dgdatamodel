@@ -1,10 +1,10 @@
-﻿using DG.Data.Model;
+﻿using System;
+using DG.Data.Model;
 #if NETFRAMEWORK
 using DG.DataModelSample.Model.Entity;
 #else
 using DG.DataModelSample.Model.Entity.Context;
 #endif
-using System;
 #if !NETFRAMEWORK
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
