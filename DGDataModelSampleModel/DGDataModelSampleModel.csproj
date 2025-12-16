@@ -4,9 +4,9 @@
     <RootNamespace>DG.DataModelSample.Model</RootNamespace>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Version>1.2.30116.12</Version>
-    <AssemblyVersion>1.2.30116.12</AssemblyVersion>
-    <FileVersion>1.2.30116.12</FileVersion>
+    <Version>1.2.31216.13</Version>
+    <AssemblyVersion>1.2.31216.13</AssemblyVersion>
+    <FileVersion>1.2.31216.13</FileVersion>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
     <PackageReference Include="EntityFramework" Version="6.0.0" />

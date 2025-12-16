@@ -119,6 +119,38 @@ namespace DG.DataModelSample.Model.Test
             Assert.That(actual, Is.EqualTo(expected));
         }
 
+        [Test]
+        public void DGDataTableUtils_ToObject1()
+        {
+            List<VAPost> posts = new List<VAPost>()
+            {
+                new VAPost()
+                {
+                    posts_name = "Post1"
+                },
+                new VAPost()
+                {
+                    posts_name = "Post2"
+                }
+            };
+
+            DataTable dt = DGDataTableUtils.ToDataTable<VAPost>(posts);
+
+            DataRow row = dt.Rows[0];
+            VAPost result = row.ToObject<VAPost>();
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.posts_name, Is.EqualTo("Post1"));
+
+            VAPost singlepost = new VAPost()
+            {
+                posts_name = "RoundTripPost"
+            };
+
+            VAPost clone = DGDataTableUtils.ToDataTable(new[] { singlepost }).Rows[0].ToObject<VAPost>();
+
+            Assert.That(clone.posts_name, Is.EqualTo(singlepost.posts_name));
+        }
     }
 
 

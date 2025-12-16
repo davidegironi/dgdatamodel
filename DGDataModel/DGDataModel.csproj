@@ -5,10 +5,10 @@
     <RootNamespace>DG.Data.Model</RootNamespace>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>DGDataModel</AssemblyName>
-    <Version>1.2.30116.12</Version>
-    <AssemblyVersion>1.2.30116.12</AssemblyVersion>
-    <FileVersion>1.2.30116.12</FileVersion>
-    <PackageVersion>1.2.30116.12</PackageVersion>
+    <Version>1.2.31216.13</Version>
+    <AssemblyVersion>1.2.31216.13</AssemblyVersion>
+    <FileVersion>1.2.31216.13</FileVersion>
+    <PackageVersion>1.2.31216.13</PackageVersion>
     <Title>DGDataModel</Title>
     <Description>Generic data access layer built on top of the .NET Entity Framework</Description>
     <Product>DGDataModel</Product>
@@ -26,7 +26,7 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net40" Version="1.0.3" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net40" Version="1.0.3" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\License\LICENSE">

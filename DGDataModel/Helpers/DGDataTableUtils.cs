@@ -50,5 +50,26 @@ namespace DG.Data.Model.Helpers
 
             return table;
         }
+
+        /// <summary>
+        /// DataRow to object clone
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="row"></param>
+        /// <returns></returns>
+        public static T ToObject<T>(this DataRow row)
+            where T : new()
+        {
+            T item = new T();
+            foreach (DataColumn column in row.Table.Columns)
+            {
+                PropertyInfo prop = typeof(T).GetProperty(column.ColumnName);
+                if (prop != null && row[column] != DBNull.Value)
+                {
+                    prop.SetValue(item, row[column], null);
+                }
+            }
+            return item;
+        }
     }
 }
