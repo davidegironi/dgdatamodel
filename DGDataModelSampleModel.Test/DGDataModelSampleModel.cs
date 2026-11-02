@@ -32,7 +32,6 @@ namespace DG.DataModelSample.Model.Test
 #if !NETFRAMEWORK
             File.Copy($"{System.Reflection.Assembly.GetExecutingAssembly().Location}.config", ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath, true);
 #endif
-
             Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
 
             samplemodel = new Model.DGDataModelSampleModel();

@@ -17,8 +17,6 @@ set CONNECTIONSTRINGNAME=%DATABASE%ConnectionString
 rem Additional scaffold parameters
 set SCAFFOLDPARAMS=--no-pluralize --use-database-names
 
-rem SED executable path
-set SEDBIN=Sed\sed.exe
 rem Context dir
 set CONTEXTDIR=Entity\Context
 rem Models dir

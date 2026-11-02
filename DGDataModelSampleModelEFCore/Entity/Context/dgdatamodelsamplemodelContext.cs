@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using DG.DataModelSample.Model.Entity.Models;
@@ -26,7 +26,14 @@ namespace DG.DataModelSample.Model.Entity.Context
         public virtual DbSet<poststotags> poststotags { get; set; }
         public virtual DbSet<tags> tags { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { if (optionsBuilder.IsConfigured == false) optionsBuilder.UseSqlServer(System.Configuration.ConfigurationManager.AppSettings["dgdatamodelsamplemodelConnectionString"]); }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(System.Configuration.ConfigurationManager.AppSettings["dgdatamodelsamplemodelConnectionString"]);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<blogs>(entity =>
