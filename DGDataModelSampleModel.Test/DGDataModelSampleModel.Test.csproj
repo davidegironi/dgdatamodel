@@ -34,7 +34,7 @@
     <PackageReference Include="NUnit" Version="4.3.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
-    <Reference Include="System.Configuration" />
+    <Reference Include="System.configuration" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
